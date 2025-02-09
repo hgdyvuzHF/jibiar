@@ -31,7 +31,6 @@ const Navbar = () => {
       default:
         if (location.pathname !== '/') {
           navigate('/');
-          // Attendre que la navigation soit terminée avant de faire défiler
           setTimeout(() => {
             const element = document.getElementById(item.toLowerCase());
             if (element) {
@@ -49,9 +48,10 @@ const Navbar = () => {
 
   return (
     <nav
-      className={`fixed top-0 w-full z-50 transition-all duration-300 ${
+      className={`fixed w-full z-50 transition-all duration-300 ${
         isScrolled ? 'bg-black/80 backdrop-blur-sm' : 'bg-transparent'
       }`}
+      style={{ top: 'var(--banner-height, 28px)' }}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">

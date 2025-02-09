@@ -11,7 +11,7 @@ export const productData: Product[] = [
       '🌟 Premium quality',
       '💨 Smooth and pleasant smoke'
     ],
-    price: 199,
+    price: 52.5,
     category: 'Premium'
   },
   {
@@ -24,7 +24,7 @@ export const productData: Product[] = [
       '⭐ Limited edition',
       '🎯 Long-lasting taste'
     ],
-    price: 239,
+    price: 52.5,
     category: 'Limited Edition'
   },
   {
@@ -37,7 +37,7 @@ export const productData: Product[] = [
       '💫 Long duration',
       '✨ Superior quality'
     ],
-    price: 219,
+    price: 52.5,
     category: 'Premium'
   }
 ];

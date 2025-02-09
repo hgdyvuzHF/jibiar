@@ -4,18 +4,27 @@ import { RippleContainer } from '../../../components/RippleEffect';
 import { AddToCartButton } from '../../../components/shared/AddToCartButton';
 import { ProductModal } from '../../../components/Products/ProductModal';
 import { Product } from '../types';
+import { formatPrice } from '../../../utils/formatCurrency';
 
 interface ProductCardProps {
   product: Product;
 }
 
+type Size = '250g' | '1KG';
+
 export const ProductCard = ({ product }: ProductCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<Size>('250g');
+
+  const prices = {
+    '250g': 50,
+    '1KG': 200
+  };
 
   const cartProduct = {
-    id: product.id,
-    title: product.title,
-    price: product.price,
+    id: `${product.id}-${selectedSize}`,
+    title: `${product.title} - ${selectedSize}`,
+    price: prices[selectedSize],
     image: product.image
   };
 
@@ -42,7 +51,28 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </ul>
           
           <div className="mt-auto space-y-4">
-            <div className="text-2xl font-bold text-[#ffce79]">{product.price}€</div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-white/80">Select Size:</label>
+              <div className="grid grid-cols-2 gap-2">
+                {(['250g', '1KG'] as const).map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`py-2 px-3 rounded-lg font-medium transition-all duration-200 ${
+                      selectedSize === size
+                        ? 'bg-[#ffce79] text-black'
+                        : 'bg-white/10 text-white hover:bg-white/20'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="text-2xl font-bold text-[#ffce79]">
+              {formatPrice(prices[selectedSize])}
+            </div>
             
             <div className="flex flex-col sm:flex-row gap-2">
               <RippleContainer>

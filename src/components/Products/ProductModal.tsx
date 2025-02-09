@@ -5,10 +5,16 @@ import { AddToCartButton } from '../shared/AddToCartButton';
 import { use3DEffect } from '../../hooks/use3DEffect';
 import { formatPrice } from '../../utils/formatCurrency';
 
-interface ProductVariant {
-  size: '250g' | '1KG';
-  price: number;
-}
+const PRICES = {
+  '250g': {
+    ht: 50, // Price excluding tax
+    ttc: 52.5 // Price including tax
+  },
+  '1KG': {
+    ht: 200, // Price excluding tax
+    ttc: 210 // Price including tax
+  }
+} as const;
 
 interface ProductModalProps {
   product: {
@@ -17,7 +23,6 @@ interface ProductModalProps {
     image: string;
     description: string;
     features: string[];
-    price: number;
   };
   isOpen: boolean;
   onClose: () => void;
@@ -30,17 +35,10 @@ export const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) =>
 
   if (!isOpen) return null;
 
-  const variants: ProductVariant[] = [
-    { size: '250g', price: product.price },
-    { size: '1KG', price: product.price * 3.5 }
-  ];
-
-  const selectedPrice = variants.find(v => v.size === selectedVariant)?.price || product.price;
-
   const cartProduct = {
     id: `${product.id}-${selectedVariant}`,
     title: `${product.title} - ${selectedVariant}`,
-    price: selectedPrice,
+    price: PRICES[selectedVariant].ht,
     image: product.image
   };
 
@@ -93,23 +91,30 @@ export const ProductModal = ({ product, isOpen, onClose }: ProductModalProps) =>
             <div className="space-y-4">
               <h3 className="text-lg font-semibold text-white">Select Size</h3>
               <div className="flex gap-4">
-                {variants.map((variant) => (
+                {(['250g', '1KG'] as const).map((variant) => (
                   <button
-                    key={variant.size}
-                    onClick={() => setSelectedVariant(variant.size)}
+                    key={variant}
+                    onClick={() => setSelectedVariant(variant)}
                     className={`flex-1 py-3 px-4 rounded-lg font-semibold transition-all duration-300 ${
-                      selectedVariant === variant.size
+                      selectedVariant === variant
                         ? 'bg-[#ffce79] text-black'
                         : 'bg-white/10 text-white hover:bg-white/20'
                     }`}
                   >
-                    {variant.size}
+                    {variant}
                   </button>
                 ))}
               </div>
             </div>
 
-            <div className="text-2xl font-bold text-[#ffce79]">{formatPrice(selectedPrice)}</div>
+            <div className="space-y-1">
+              <div className="text-2xl font-bold text-[#ffce79]">
+                {formatPrice(PRICES[selectedVariant].ttc, { includeTax: true })}
+              </div>
+              <div className="text-sm text-white/60">
+                {formatPrice(PRICES[selectedVariant].ht)}
+              </div>
+            </div>
 
             <div className="prose prose-invert">
               <p className="text-white/90 text-lg">{product.description}</p>

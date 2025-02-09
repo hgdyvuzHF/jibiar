@@ -3,6 +3,7 @@ import { useLocation, useNavigate } from 'react-router-dom';
 import { ArrowLeft, ShoppingCart, Star } from 'lucide-react';
 import { RippleContainer } from '../RippleEffect';
 import { use3DEffect } from '../../hooks/use3DEffect';
+import { formatPrice } from '../../utils/formatCurrency';
 
 const ProductDetail = () => {
   const { state } = useLocation();
@@ -26,7 +27,6 @@ const ProductDetail = () => {
         </button>
 
         <div className="grid md:grid-cols-2 gap-12">
-          {/* Image Section */}
           <div
             ref={ref}
             className="bg-white/5 rounded-2xl p-8 backdrop-blur-sm"
@@ -48,7 +48,6 @@ const ProductDetail = () => {
             />
           </div>
 
-          {/* Product Info Section */}
           <div className="space-y-6">
             <h1 className="text-4xl font-bold text-[#ffce79]">{product.title}</h1>
             
@@ -59,7 +58,9 @@ const ProductDetail = () => {
               <span className="text-white/60 text-sm">(150 reviews)</span>
             </div>
 
-            <div className="text-2xl font-bold text-[#ffce79]">€{product.price}</div>
+            <div className="text-2xl font-bold text-[#ffce79]">
+              {formatPrice(product.price, { includeTax: true })}
+            </div>
 
             <div className="prose prose-invert">
               <p className="text-white/90 text-lg">{product.description}</p>

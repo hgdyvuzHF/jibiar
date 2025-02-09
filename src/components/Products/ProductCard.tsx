@@ -10,13 +10,27 @@ interface ProductCardProps {
   product: Product;
 }
 
+type Size = '250g' | '1KG';
+
+const PRICES = {
+  '250g': {
+    ht: 50, // Price excluding tax
+    ttc: 52.5 // Price including tax
+  },
+  '1KG': {
+    ht: 200, // Price excluding tax
+    ttc: 210 // Price including tax
+  }
+} as const;
+
 export const ProductCard = ({ product }: ProductCardProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedSize, setSelectedSize] = useState<Size>('250g');
 
   const cartProduct = {
-    id: product.id,
-    title: product.title,
-    price: product.price,
+    id: `${product.id}-${selectedSize}`,
+    title: `${product.title} - ${selectedSize}`,
+    price: PRICES[selectedSize].ht,
     image: product.image
   };
 
@@ -43,7 +57,33 @@ export const ProductCard = ({ product }: ProductCardProps) => {
           </ul>
           
           <div className="mt-auto space-y-4">
-            <div className="text-2xl font-bold text-[#ffce79]">{formatPrice(product.price)}</div>
+            <div className="flex flex-col gap-2">
+              <label className="text-sm text-white/80">Select Size:</label>
+              <div className="grid grid-cols-2 gap-2">
+                {(['250g', '1KG'] as const).map((size) => (
+                  <button
+                    key={size}
+                    onClick={() => setSelectedSize(size)}
+                    className={`py-2 px-3 rounded-lg font-medium transition-all duration-200 ${
+                      selectedSize === size
+                        ? 'bg-[#ffce79] text-black'
+                        : 'bg-white/10 text-white hover:bg-white/20'
+                    }`}
+                  >
+                    {size}
+                  </button>
+                ))}
+              </div>
+            </div>
+
+            <div className="space-y-1">
+              <div className="text-2xl font-bold text-[#ffce79]">
+                {formatPrice(PRICES[selectedSize].ttc, { includeTax: true })}
+              </div>
+              <div className="text-sm text-white/60">
+                {formatPrice(PRICES[selectedSize].ht)}
+              </div>
+            </div>
             
             <div className="grid grid-cols-2 gap-2">
               <RippleContainer>

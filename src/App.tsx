@@ -17,6 +17,7 @@ import PrivacyPolicy from './pages/PrivacyPolicy';
 import TermsConditions from './pages/TermsConditions';
 import ThankYouPage from './pages/ThankYouPage';
 import { CartProvider } from './context/CartContext';
+import FreeShippingBanner from './components/FreeShippingBanner';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         <div className="min-h-screen relative">
           <ParticlesBackground />
           <div className="relative z-10">
+            <FreeShippingBanner />
             <Navbar />
             <Routes>
               <Route path="/" element={

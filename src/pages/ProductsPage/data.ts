@@ -12,7 +12,7 @@ export const productData: Product[] = [
       '🌟 Premium quality',
       '💨 Smooth and pleasant smoke'
     ],
-    price: 49.99,
+    price: 52.5,
     category: 'Premium'
   },
   {
@@ -26,7 +26,7 @@ export const productData: Product[] = [
       '⭐ Limited edition',
       '🎯 Long-lasting taste'
     ],
-    price: 59.99,
+    price: 52.5,
     category: 'Limited Edition'
   },
   {
@@ -40,7 +40,7 @@ export const productData: Product[] = [
       '💫 Long duration',
       '✨ Superior quality'
     ],
-    price: 54.99,
+    price: 52.5,
     category: 'Premium'
   },
   {
@@ -58,7 +58,7 @@ export const productData: Product[] = [
       '💫 Extended duration',
       '🌟 Exclusive quality'
     ],
-    price: 79.99,
+    price: 52.5,
     category: 'Limited Edition'
   },
   {
@@ -74,7 +74,7 @@ export const productData: Product[] = [
       '✨ Premium ingredients',
       '🌟 Intense aroma'
     ],
-    price: 89.99,
+    price: 52.5,
     category: 'Premium'
   },
   {
@@ -90,7 +90,7 @@ export const productData: Product[] = [
       '💨 Smooth smoke',
       '⭐ Consistent quality'
     ],
-    price: 44.99,
+    price: 52.5,
     category: 'Classic'
   },
   {
@@ -106,7 +106,7 @@ export const productData: Product[] = [
       '🌟 Superior blend',
       '✨ Long-lasting'
     ],
-    price: 69.99,
+    price: 52.5,
     category: 'Premium'
   },
   {
@@ -122,7 +122,7 @@ export const productData: Product[] = [
       '✨ Balanced blend',
       '💨 Smooth texture'
     ],
-    price: 49.99,
+    price: 52.5,
     category: 'Classic'
   }
 ];

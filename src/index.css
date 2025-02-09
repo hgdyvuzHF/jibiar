@@ -2,6 +2,16 @@
 @tailwind components;
 @tailwind utilities;
 
+:root {
+  --banner-height: 28px;
+}
+
+@media (min-width: 640px) {
+  :root {
+    --banner-height: 32px;
+  }
+}
+
 @keyframes scale-in {
   from {
     transform: scale(1.1);

@@ -14,6 +14,9 @@ interface CartItemProps {
 
 export const CartItem = ({ id, title, price, image, quantity }: CartItemProps) => {
   const { dispatch } = useCart();
+  const priceTTC = price * 1.05; // Add 5% VAT
+  const totalHT = price * quantity;
+  const totalTTC = priceTTC * quantity;
 
   const handleUpdateQuantity = (newQuantity: number) => {
     if (newQuantity < 1) {
@@ -28,7 +31,10 @@ export const CartItem = ({ id, title, price, image, quantity }: CartItemProps) =
       <img src={image} alt={title} className="w-24 h-24 object-cover rounded-lg" />
       <div className="flex-1">
         <h3 className="text-lg font-semibold text-[#ffce79]">{title}</h3>
-        <p className="text-white/80">{formatPrice(price)}</p>
+        <div className="space-y-1">
+          <p className="text-white/80">{formatPrice(price)}</p>
+          <p className="text-sm text-white/60">{formatPrice(priceTTC, { includeTax: true })}</p>
+        </div>
       </div>
       <div className="flex items-center gap-3">
         <RippleContainer>
